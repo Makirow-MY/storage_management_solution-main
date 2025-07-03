@@ -37,16 +37,17 @@ const OtpModal = ({
     e.preventDefault();
     setIsLoading(true);
 
-    console.log({ accountId, password });
+   // console.log({ accountId, password });
 
     try {
       const sessionId = await verifySecret({ accountId, password });
 
-      console.log({ sessionId });
+   //   console.log({ sessionId });
 
       if (sessionId) router.push("/");
     } catch (error) {
       console.log("Failed to verify OTP", error);
+      throw error;
     }
 
     setIsLoading(false);
@@ -73,7 +74,7 @@ const OtpModal = ({
           </AlertDialogTitle>
           <AlertDialogDescription className="subtitle-2 text-center text-light-100">
             We&apos;ve sent a code to{" "}
-            <span className="pl-1 text-brand">{email}</span>
+            <span className="pl-1" style={{color: 'rgb(5, 93, 42)'}}>{email}</span>
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -112,7 +113,8 @@ const OtpModal = ({
               <Button
                 type="button"
                 variant="link"
-                className="pl-1 text-brand"
+                className="pl-1 "
+                style={{color: 'rgb(5, 93, 42)'}}
                 onClick={handleResendOtp}
               >
                 Click to resend

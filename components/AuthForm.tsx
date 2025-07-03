@@ -3,7 +3,10 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
+import { FaPhoneVolume, FaEye } from "react-icons/fa6";
+import { IoDocumentAttachOutline, IoEye, IoEyeOff } from "react-icons/io5";
+import { RiAttachmentFill, RiAttachmentLine } from "react-icons/ri";
+import {MdAttachEmail, MdOutlineAttachEmail  } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -19,6 +22,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { createAccount, signInUser } from "@/lib/actions/user.actions";
 import OtpModal from "@/components/OTPModal";
+import { Icon } from "@radix-ui/react-select";
 
 type FormType = "sign-in" | "sign-up";
 
@@ -69,11 +73,13 @@ const AuthForm = ({ type }: { type: FormType }) => {
     }
   };
 
+  const [passwordHide, setPasswordHide] = useState(true)
+
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="auth-form">
-          <h1 className="form-title">
+          <h1 className="form-title text-center w-100">
             {type === "sign-in" ? "Sign In" : "Sign Up"}
           </h1>
           {type === "sign-up" && (
@@ -129,13 +135,23 @@ const AuthForm = ({ type }: { type: FormType }) => {
                 <div className="shad-form-item">
                   <FormLabel className="shad-form-label">Password</FormLabel>
 
+                 
+                  <div className="flex w-100">
                   <FormControl>
                     <Input
+                    type={passwordHide ? "password" : "text"}
                       placeholder="Enter your password"
                       className="shad-input"
                       {...field}
                     />
+                    
                   </FormControl>
+                  
+                  <div style={{cursor:'pointer'}} onClick={() => setPasswordHide(!passwordHide)}>
+                  { passwordHide ?  <IoEye  className="text-light-200"  size={18} /> : <IoEyeOff size={18} className="text-light-200"  /> }
+                  </div>
+                  
+                    </div>
                 </div>
 
                 <FormMessage className="shad-form-message" />
@@ -171,7 +187,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
             </p>
             <Link
               href={type === "sign-in" ? "/sign-up" : "/sign-in"}
-              className="ml-1 font-medium text-brand"
+              className="ml-1 font-medium "
+              style={{color:'#0EF86FFF'}}
             >
               {" "}
               {type === "sign-in" ? "Sign Up" : "Sign In"}
