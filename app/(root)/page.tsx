@@ -77,7 +77,7 @@ const Dashboard = async () => {
                   url={file.url}
                 />
 
-                <div className="recent-file-details">
+                <div style={{display:'flex'}} className="recent-file-details flex gap-2">
                   <div className="flex flex-col gap-1">
                     <p className="recent-file-name">{file.name}</p>
                     <FormattedDateTime
